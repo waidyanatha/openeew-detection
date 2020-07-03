@@ -5,7 +5,7 @@ This is a simple docker-compose configuration to startup a new OpenEEW detection
 <p align="center"> 
 
 ## Incoming sensor data
-### Content
+### Sensor data
 [The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared.
 
 ### MQTT Broker
