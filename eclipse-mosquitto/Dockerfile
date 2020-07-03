@@ -1,4 +1,5 @@
 FROM eclipse-mosquitto:1.6.10
+LABEL maintainer="Egidio Caprino <egidio.caprino@gmail.com>"
 
 ENV port 1883
 
