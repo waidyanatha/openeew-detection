@@ -1,7 +1,7 @@
 # Earthquake detection for OpenEEW 
 This is a simple docker-compose configuration to startup a new OpenEEW detection system. It ingests data from OpenEEW sensors via an MQTT broker, and triggers for individual sensors using a detection method. These events are then sent to a multi-station logic script that checks time and distance proximity for sensors before declaring an earthquake.
 
-![MQQT](images/mqqt_workflow.png?raw=true "Diagram")
+![MQTT](images/mqtt_workflow.png?raw=true "Diagram")
 <p align="center"> 
 
 ## Incoming sensor data
