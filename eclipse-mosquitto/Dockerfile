@@ -2,8 +2,10 @@ FROM eclipse-mosquitto:1.6.10
 LABEL maintainer="Egidio Caprino <egidio.caprino@gmail.com>"
 
 ENV port 1883
+ENV username ""
+ENV password ""
 
-COPY mosquitto.conf /mosquitto/config/mosquitto.conf
+RUN rm /mosquitto/config/mosquitto.conf
 COPY detector /usr/sbin/detector
 RUN chmod +x /usr/sbin/detector
 

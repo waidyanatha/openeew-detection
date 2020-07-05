@@ -1,6 +1,13 @@
 #!/usr/bin/env sh
 
-set -m;
+set -em
+
+if [ -n "${username}" ] && [ -n "${password}" ]; then
+  echo "${username}:${password}" >> /mosquitto/config/passwords
+  echo "password_file /mosquitto/config/passwords" >> /mosquitto/config/mosquitto.conf
+else
+  echo "Not using authentication"
+fi
 
 mosquitto --port "${port}" --config-file /mosquitto/config/mosquitto.conf &
 timeout 1m sh -c "until nc -z 127.0.0.1 ${port}; do sleep 1; done"
