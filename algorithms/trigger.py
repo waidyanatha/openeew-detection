@@ -59,3 +59,15 @@ def trigger_time(function, t, trig_level):
     index = np.argwhere(function >= trig_level)
     
     return t[index] 
+
+
+def accel_value(x,y,z):
+    '''
+    Estimate the maximum value of acceleration of the three components
+    x (numpy array) = signal  
+    y (numpy array) = signal  
+    z (numpy array) = signal  
+    '''
+    return (x**2 + y**2 + z**2)**0.5
+    
+
