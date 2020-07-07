@@ -9,8 +9,8 @@ else
   echo "Not using authentication"
 fi
 
-mosquitto --port "${port}" --config-file /mosquitto/config/mosquitto.conf &
-timeout 1m sh -c "until nc -z 127.0.0.1 ${port}; do sleep 1; done"
+mosquitto --config-file /mosquitto/config/mosquitto.conf &
+timeout 1m sh -c "until nc -z 127.0.0.1 1883; do sleep 1; done"
 echo "@todo run Python script here"
 
 fg %1
