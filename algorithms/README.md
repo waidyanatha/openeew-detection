@@ -1,3 +1,10 @@
+## Build the Docker image
+
+```shell script
+cd algorithms
+docker build --tag openeew-detection:0.0.1 .
+```
+
 ## Usage
 
 ```shell script
