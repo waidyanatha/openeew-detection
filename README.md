@@ -43,6 +43,7 @@ To be added
 
 ### Authors
 - [Grillo](https://grillo.io)
+- [Egidio Caprino](https://github.com/EgidioCaprino)
 ___
 
 Enjoy!  Give us [feedback](https://github.com/openeew/openeew-detection/issues) if you have suggestions on how to improve this information.
