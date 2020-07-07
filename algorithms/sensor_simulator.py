@@ -6,13 +6,8 @@ def convert_str2json(openeewJSON_out):
 	'''
 	
 	'''
-	#print(openeewJSON_out)
-	#print("openeewJSON_out is a ",type(openeewJSON_out))
 	data_out=json.dumps(openeewJSON_out)# encode oject to JSON
-	#print("\nConverting to JSON\n")
-	#print ("data -type ",type(data_out))
-	#print ("data out =",data_out)
-
+	
 	return data_out
 
 
@@ -22,13 +17,10 @@ def publish(host, port, topic, data_out):
 	client=mqtt.Client()
 	client.connect(host, port)
 	client.loop_start()
-	#time.sleep(1)
 	print("sending data this is publish")
 	client.publish(topic,data_out)
 	time.sleep(1)
-	#client.loop_stop()
-	#client.disconnect()
-
+	
 def read(file_name):
     '''
     Read a file containing json per line with msgs from sensors
@@ -36,9 +28,7 @@ def read(file_name):
     '''
     with open(file_name, "r") as fo:
         for line in fo:
-            #Convert string to json
             data_out = convert_str2json(line)
-            # topic
             topic = "/traces"
             host = "localhost" 	
             port = 1883	 
