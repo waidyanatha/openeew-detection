@@ -3,6 +3,12 @@ This is a simple docker-compose configuration to startup a new OpenEEW detection
 
 ![MQTT](images/mqtt_workflow.png?raw=true "Diagram")
 <p align="center"> 
+  
+## Quick start
+If you wish to run the example, you can use the following command after [installing Docker Desktop](https://www.docker.com/get-started):
+```
+docker run...
+```
 
 ## Incoming sensor data
 ### Sensor data
