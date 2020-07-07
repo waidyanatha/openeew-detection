@@ -27,6 +27,8 @@ The maximum acceleration, or Peak Ground Acceleration (PGA) `(x**2 + y**2 + z**2
 
 The output from this process is sent as a  value (PGA) using the topic `/pga-trigger`.
 
+To be added.
+
 ### Multi sensor process - Earthquake confirmation
 To be added.
 
