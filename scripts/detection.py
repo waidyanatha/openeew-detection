@@ -19,8 +19,8 @@ trigger_level = 3
 
 def authenticate(client):
     parser = argparse.ArgumentParser()
-    parser.add_argument("-u", "--username", help="MQTT username")
-    parser.add_argument("-p", "--password", help="MQTT password")
+    parser.add_argument("--username", help="MQTT username")
+    parser.add_argument("--password", help="MQTT password")
     args = parser.parse_args()
     if args.username and args.password:
         client.username_pw_set(username=args.username, password=args.password)

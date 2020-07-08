@@ -3,11 +3,13 @@ import time
 import json
 import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--username", help="MQTT username")
+parser.add_argument("--password", help="MQTT password")
+parser.add_argument("--port", help="MQTT port", nargs="?", type=int, const=1883, default=1883)
+args = parser.parse_args()
+
 def authenticate(client):
-	parser = argparse.ArgumentParser()
-	parser.add_argument("-u", "--username", help="MQTT username")
-	parser.add_argument("-p", "--password", help="MQTT password")
-	args = parser.parse_args()
 	if args.username and args.password:
 		client.username_pw_set(username=args.username, password=args.password)
 	return client
@@ -41,7 +43,7 @@ def read(file_name):
             data_out = convert_str2json(line)
             topic = "/traces"
             host = "localhost" 	
-            port = 1883	 
+            port = args.port
             publish(host, port, topic, data_out)
 
 
