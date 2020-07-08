@@ -5,13 +5,6 @@ This is a simple docker-compose configuration to startup a new OpenEEW detection
 If you wish to run the OpenEEW detection system, you can use the following command after [installing Docker Desktop](https://www.docker.com/get-started):
 
 ```shell script
-cd algorithms
-docker build --tag openeew-detection:0.0.1 .
-```
-
-### Usage
-
-```shell script
 docker run \
   --interactive \
   --tty \
@@ -20,6 +13,13 @@ docker run \
   --env password=admin \
   --publish 1883:1883 \
   openeew-detection:0.0.1
+```
+
+### Build 
+
+```shell script
+cd algorithms
+docker build --tag openeew-detection:0.0.1 .
 ```
 
 ### Simulate sensor data
