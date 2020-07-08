@@ -42,17 +42,6 @@ anyone to publish data to your detector. This setup is primary meant for develop
 docker build --tag openeew/detector:dev .
 ```
 
-Then start a development container for testing:
-
-```shell script
-docker run \
-  --interactive \
-  --tty \
-  --detach \
-  --publish 1883:1883 \
-  openeew/detector:dev
-```
-
 Then run a development container:
 
 ```shell script
