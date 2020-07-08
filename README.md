@@ -1,15 +1,41 @@
 # Earthquake detection for OpenEEW 
 This is a simple docker-compose configuration to startup a new OpenEEW detection system. It ingests data from OpenEEW sensors via an MQTT broker, and triggers for individual sensors using a detection method. These events are then sent to a multi-station logic script that checks time and distance proximity for sensors before declaring an earthquake.
+  
+## Quick start
+If you wish to run the OpenEEW detection system, you can use the following command after [installing Docker Desktop](https://www.docker.com/get-started):
+
+```shell script
+cd algorithms
+docker build --tag openeew-detection:0.0.1 .
+```
+
+### Usage
+
+```shell script
+docker run \
+  --interactive \
+  --tty \
+  --detach \
+  --env username=admin \
+  --env password=admin \
+  --publish 1883:1883 \
+  openeew-detection:0.0.1
+```
+
+### Simulate sensor data
+
+Start a container as indicated above and then run the following on the *host* machine:
+
+```shell script
+cp algorithms
+python3 sensor_simulator.py --username admin --password admin
+```
+
+## Architecture
 
 ![MQTT](images/mqtt_workflow.png?raw=true "Diagram")
 <p align="center"> 
   
-## Quick start
-If you wish to run the OpenEEW detection system, you can use the following command after [installing Docker Desktop](https://www.docker.com/get-started):
-```
-docker run...
-```
-
 ## Incoming sensor data
 ### Sensor data
 [The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared.
