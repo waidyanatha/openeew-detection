@@ -8,7 +8,7 @@ RUN apk update
 RUN apk add python3 py3-paho-mqtt py3-numpy
 
 RUN mkdir /opt/openeew
-COPY detection.py trigger.py /opt/openeew/
+COPY scripts/detection.py scripts/trigger.py /opt/openeew/
 
 RUN rm /mosquitto/config/mosquitto.conf
 RUN touch /mosquitto/config/mosquitto.conf

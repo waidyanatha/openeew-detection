@@ -2,7 +2,7 @@
 This is a simple docker-compose configuration to startup a new OpenEEW detection system. It ingests data from OpenEEW sensors via an MQTT broker, and triggers for individual sensors using a detection method. These events are then sent to a multi-station logic script that checks time and distance proximity for sensors before declaring an earthquake.
   
 ## Quick start
-If you wish to run the OpenEEW detection system, you can use the following command after [installing Docker Desktop](https://www.docker.com/get-started):
+Install [Docker](https://www.docker.com/get-started) and run a detector container with the following command.
 
 ```shell script
 docker run \
@@ -12,14 +12,46 @@ docker run \
   --env username=admin \
   --env password=admin \
   --publish 1883:1883 \
-  openeew-detection:0.0.1
+  --name openeew-detector \
+  openeew/detector
 ```
 
-### Build 
+You can change the port published to host and the credentials. In the following example the detector listens on port
+`8080` and the username and password used for authentication are `foo` and `bar`. 
 
 ```shell script
-cd algorithms
-docker build --tag openeew-detection:0.0.1 .
+docker run \
+  --interactive \
+  --tty \
+  --detach \
+  --env username=foo \
+  --env password=bar \
+  --publish 8080:1883 \
+  --name openeew-detector \
+  openeew/detector
+```
+
+You can also omit the `username` and `password` parameters but that would be a **less secure** option and would allow
+anyone to publish data to your detector. This setup is primary meant for development.
+
+### Build your own Docker image
+
+*For developers only*. Apply the changes to the `Dockerfile` and run the following command. 
+
+```shell script
+docker build --tag openeew/detection:dev .
+```
+
+Then run a development container:
+
+```shell script
+docker run \
+  --interactive \
+  --tty \
+  --detach \
+  --publish 1883:1883 \
+  --name openeew-detector-dev \
+  openeew/detector
 ```
 
 ### Simulate sensor data
@@ -27,8 +59,8 @@ docker build --tag openeew-detection:0.0.1 .
 Start a container as indicated above and then run the following on the *host* machine:
 
 ```shell script
-cp scripts
-python3 sensor_simulator.py --username admin --password admin
+cd scripts
+python3 sensor_simulator.py --username admin --password admin --port 1883
 ```
 
 ## Components
