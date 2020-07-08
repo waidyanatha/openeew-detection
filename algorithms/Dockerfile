@@ -11,6 +11,8 @@ RUN mkdir /opt/openeew
 COPY detection.py trigger.py /opt/openeew/
 
 RUN rm /mosquitto/config/mosquitto.conf
+RUN touch /mosquitto/config/mosquitto.conf
+
 COPY detector /usr/sbin/detector
 RUN chmod +x /usr/sbin/detector
 

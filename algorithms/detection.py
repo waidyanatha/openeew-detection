@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 import time
 import json
 import numpy
+import argparse
 
 from trigger import sta_lta
 from trigger import trigger_time
@@ -16,6 +17,14 @@ long_window = 11
 short_window = 1
 trigger_level = 3
 
+def authenticate(client):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-u", "--username", help="MQTT username")
+    parser.add_argument("-p", "--password", help="MQTT password")
+    args = parser.parse_args()
+    if args.username and args.password:
+        client.username_pw_set(username=args.username, password=args.password)
+    return client
 
 def set_time(times, sr, N):
     """
@@ -155,7 +164,7 @@ def on_message(client, userdata, msg):
             topic = "/pga-trigger"
             host = "localhost"  
             port = 1883  
-            client=mqtt.Client()
+            client=authenticate(mqtt.Client())
             client.connect(host, port)
             client.loop_start()
             print("Sending trigger data")
@@ -163,7 +172,7 @@ def on_message(client, userdata, msg):
 
 
 # --------------MQTT SECTION ----------------------------- 
-client = mqtt.Client()
+client = authenticate(mqtt.Client())
 client.on_connect = on_connect
 client.on_message = on_message
 client.connect("localhost", 1883)
