@@ -51,7 +51,7 @@ docker run \
   --detach \
   --publish 1883:1883 \
   --name openeew-detector-dev \
-  openeew/detector
+  openeew/detector:dev
 ```
 
 ### Simulate sensor data
