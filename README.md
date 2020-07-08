@@ -31,7 +31,7 @@ cp algorithms
 python3 sensor_simulator.py --username admin --password admin
 ```
 
-## Architecture
+## Components
 
 ![MQTT](images/mqtt_workflow.png?raw=true "Diagram")
 <p align="center"> 
