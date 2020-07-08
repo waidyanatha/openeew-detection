@@ -1,6 +1,16 @@
 import paho.mqtt.client as mqtt
 import time
 import json
+import argparse
+
+def authenticate(client):
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-u", "--username", help="MQTT username")
+	parser.add_argument("-p", "--password", help="MQTT password")
+	args = parser.parse_args()
+	if args.username and args.password:
+		client.username_pw_set(username=args.username, password=args.password)
+	return client
 
 def convert_str2json(openeewJSON_out):
 	'''
@@ -14,7 +24,7 @@ def convert_str2json(openeewJSON_out):
 def publish(host, port, topic, data_out):
 	'''
 	'''
-	client=mqtt.Client()
+	client=authenticate(mqtt.Client())
 	client.connect(host, port)
 	client.loop_start()
 	print("sending data this is publish")
