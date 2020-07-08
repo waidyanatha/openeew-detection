@@ -27,7 +27,7 @@ docker run \
 Start a container as indicated above and then run the following on the *host* machine:
 
 ```shell script
-cp algorithms
+cp scripts
 python3 sensor_simulator.py --username admin --password admin
 ```
 
