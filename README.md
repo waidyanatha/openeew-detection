@@ -75,8 +75,7 @@ python3 sensor_simulator.py --username admin --password admin --port 1883
 ### MQTT Broker
 OpenEEW sensor data is ingested via a [Mosquitto MQTT broker](https://mosquitto.org/) with the topic `/traces`.
 
-## Detection script
-A python script subscribes to `/traces` and runs 2 processes against each incoming message; an STA/LTA, and a PGA trigger.
+## Detection Algorithms
 
 ### Single sensor process - STA/LTA
 First we run a Short-Term Average/Long-Term Average (STA/LTA) algorithm .This method is widely used to identify any disturbances in the signal (such as earthquakes) and determine the time when an event starts.
@@ -92,6 +91,16 @@ The maximum acceleration, or Peak Ground Acceleration (PGA) `(x**2 + y**2 + z**2
 The output from this process is sent as a  value (PGA) using the topic `/pga-trigger`.
 
 To be added.
+
+## Detection Implementations
+
+### Python
+This repo contains python [scripts](/scripts) which subscribes to `/traces` and runs 2 processes against each incoming message; an STA/LTA, and a PGA trigger.
+
+### Javascript
+The [openeew-nodered README]( https://github.com/openeew/openeew-nodered) contains an example of how to implement the PGA algorithm in Javascript. 
+
+
 
 ### Multi sensor process - Earthquake confirmation
 To be added.
