@@ -88,16 +88,19 @@ def parser_json(payload):
     # Set times per each data tupple (x, y and z)
     t = set_time(_t, sr, len(x))
     
-    #traces = {"t" : numpy.array(t), "x" : numpy.array(x), "y" : numpy.array(y), "z" : numpy.array(z)}
     traces = {"t" : t, "x" : x, "y" : y, "z" : z}
     
     return device_id, cloud_t, traces, sr
 
 
 def on_connect(client, userdata, flags, rc):
-    #print("Connected with result code "+str(rc))
     client.subscribe("/traces")
 
+
+def on_publish(host, port, topic, data_out):
+    '''
+    '''
+    client.publish(topic,data_out)
 
 
 def on_message(client, userdata, msg):
@@ -108,8 +111,7 @@ def on_message(client, userdata, msg):
     # appending msg 
     # Missing check if the msgs are from different sensors
     inbox.append(m_in)
-    #print(len(inbox))
-
+    
     # When the msgs are more or equal than the long window
     if len(inbox) >= long_window:
         # Empty variables for the last 10 seconds
@@ -164,17 +166,13 @@ def on_message(client, userdata, msg):
             topic = "/pga-trigger"
             host = "localhost"  
             port = 1883  
-            client=authenticate(mqtt.Client())
-            client.connect(host, port)
-            client.loop_start()
-            print("Sending trigger data")
-            client.publish(topic, data_out)
+            client.on_publish = on_publish(host, port, topic, numpy.str(data_out))
 
 
 # --------------MQTT SECTION ----------------------------- 
 client = authenticate(mqtt.Client())
-client.on_connect = on_connect
 client.on_message = on_message
+client.on_connect = on_connect
 client.connect("localhost", 1883)
 #client.loop_forever()
 client.loop_start()
