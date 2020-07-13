@@ -2,6 +2,11 @@
 
 set -em
 
+timescaledb-tune --quiet --yes
+service postgresql start
+# @todo set up database
+echo "🚀 PostgreSQL with TimescaleDB is ready"
+
 if [ -n "${username}" ] && [ -n "${password}" ]; then
   echo "🔑 Using authentication"
   touch /opt/openeew/mosquitto_passwords
