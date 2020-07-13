@@ -3,14 +3,15 @@
 set -em
 
 if [ -n "${username}" ] && [ -n "${password}" ]; then
-  echo "Using authentication"
-  touch /mosquitto/config/passwords
-  mosquitto_passwd -b /mosquitto/config/passwords "${username}" "${password}"
-  echo "password_file /mosquitto/config/passwords" >> /mosquitto/config/mosquitto.conf
+  echo "🔑 Using authentication"
+  touch /opt/openeew/mosquitto_passwords
+  mosquitto_passwd -b /opt/openeew/mosquitto_passwords "${username}" "${password}"
+  echo "password_file /opt/openeew/mosquitto_passwords" >> /etc/mosquitto/conf.d/openeew.conf
 else
-  echo "Not using authentication"
+  echo "⚠ Not using authentication"
 fi
 
-mosquitto --config-file /mosquitto/config/mosquitto.conf &
+service mosquitto start
 timeout 1m sh -c "until nc -z 127.0.0.1 1883; do sleep 1; done"
+echo "🚀 Mosquitto is ready"
 python3 /opt/openeew/detection.py --username "${username}" --password "${password}"
