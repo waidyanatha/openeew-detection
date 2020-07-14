@@ -98,8 +98,8 @@ To be added.
 ### Python
 This repo contains python [scripts](/scripts) which subscribes to `/traces` and runs 2 processes against each incoming message; an STA/LTA, and a PGA trigger.
 
-### Javascript
-The [openeew-nodered README]( https://github.com/openeew/openeew-nodered) contains an example of how to implement the PGA algorithm in Javascript. 
+### JavaScript
+The [openeew-nodered README]( https://github.com/openeew/openeew-nodered) contains an example of how to implement the PGA algorithm in JavaScript. 
 
 
 
