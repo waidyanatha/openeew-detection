@@ -12,6 +12,8 @@ RUN apk update --no-cache \
   && mkdir /var/log/mosquitto \
   && chown mosquitto:mosquitto /var/log/mosquitto \
   && echo "log_dest file /var/log/mosquitto/mosquitto.log" >> /opt/openeew/mosquitto.conf \
+  && mkdir /run/postgresql \
+  && chown postgres:postgres /run/postgresql \
   && apk del cmake build-base git bash \
   && rm -rf /tmp/timescaledb \
   && rm -rf /var/cache/apk/*
@@ -21,8 +23,7 @@ COPY detector /usr/sbin/detector
 RUN chmod +x /usr/sbin/detector
 
 USER postgres
-RUN mkdir /run/postgresql \
-  && mkdir "${PGDATA}" \
+RUN mkdir "${PGDATA}" \
   && chmod 0700 "${PGDATA}" \
   && initdb "${PGDATA}" \
   && echo "shared_preload_libraries = 'timescaledb'" >> "${PGDATA}/postgresql.conf" \
