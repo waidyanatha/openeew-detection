@@ -1,27 +1,36 @@
-FROM ubuntu:20.04
+FROM alpine:3.12.0
 LABEL maintainer="Egidio Caprino <egidio.caprino@gmail.com>"
 
-ENV DEBIAN_FRONTEND="noninteractive" \
-  username="" \
-  password=""
+ENV PGDATA "/var/lib/postgresql/data"
 
-RUN apt-get --yes update \
-  && apt-get --yes install --no-install-recommends mosquitto python3 python3-paho-mqtt python3-numpy netcat wget software-properties-common sudo gpg-agent \
-  && echo "deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
-  && wget --quiet --output-document - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-  && add-apt-repository --yes ppa:timescale/timescaledb-ppa \
-  && apt-get --yes update \
-  && apt-get --yes install --no-install-recommends timescaledb-postgresql-12 \
-  && mkdir /opt/openeew \
-  && rm /etc/mosquitto/mosquitto.conf \
-  && touch /etc/mosquitto/mosquitto.conf \
-  && apt-get --yes remove wget software-properties-common gpg-agent \
-  && apt-get --yes autoremove \
-  && apt-get --yes clean \
-  && rm --recursive --force /var/lib/apt/lists/*
+RUN apk update --no-cache \
+  && apk add --no-cache mosquitto python3 py3-paho-mqtt py3-numpy postgresql postgresql-dev cmake build-base git bash \
+  && git clone --branch 1.7.2 https://github.com/timescale/timescaledb.git /tmp/timescaledb \
+  && cd /tmp/timescaledb && ./bootstrap -DREGRESS_CHECKS=OFF && cd build && make && make install && cd / \
+  && mkdir /opt/openeew/ \
+  && touch /opt/openeew/mosquitto.conf \
+  && mkdir /var/log/mosquitto \
+  && chown mosquitto:mosquitto /var/log/mosquitto \
+  && echo "log_dest file /var/log/mosquitto/mosquitto.log" >> /opt/openeew/mosquitto.conf \
+  && mkdir /run/postgresql \
+  && chown postgres:postgres /run/postgresql \
+  && apk del cmake build-base git bash \
+  && rm -rf /tmp/timescaledb \
+  && rm -rf /var/cache/apk/*
 
 COPY scripts/detection.py scripts/trigger.py /opt/openeew/
 COPY detector /usr/sbin/detector
 RUN chmod +x /usr/sbin/detector
 
+USER postgres
+RUN mkdir "${PGDATA}" \
+  && chmod 0700 "${PGDATA}" \
+  && initdb "${PGDATA}" \
+  && echo "shared_preload_libraries = 'timescaledb'" >> "${PGDATA}/postgresql.conf" \
+  && echo "log_destination = 'csvlog'" >> "${PGDATA}/postgresql.conf" \
+  && echo "logging_collector = on" >> "${PGDATA}/postgresql.conf" \
+  && echo "log_directory = '/var/log/postgresql'" >> "${PGDATA}/postgresql.conf" \
+  && echo "log_filename = '%Y-%m-%d_%H%M%S.log'" >> "${PGDATA}/postgresql.conf"
+
+USER root
 CMD ["/usr/sbin/detector"]
