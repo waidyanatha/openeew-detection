@@ -1,11 +1,11 @@
 ![](https://github.com/openeew/openeew-detection/workflows/CI/badge.svg)
 # Earthquake detection for OpenEEW
-This is a simple docker-compose configuration to startup a new OpenEEW detection system. It ingests data from OpenEEW sensors via an MQTT broker, and triggers for individual sensors using a detection method. These events are then sent to a multi-station logic script that checks time and distance proximity for sensors before declaring an earthquake.
+This is a simple Docker configuration to startup a new OpenEEW detection system. It ingests data from OpenEEW sensors via an MQTT broker, and triggers for individual sensors using a detection method. These events are then sent to a multi-station logic script that checks time and distance proximity for sensors before declaring an earthquake.
   
 ## Quick start
 Install [Docker](https://www.docker.com/get-started) and run a detector container with the following command.
 
-```shell script
+```shell-script
 docker run \
   --interactive \
   --tty \
@@ -20,7 +20,7 @@ docker run \
 You can change the port published to host and the credentials. In the following example the detector listens on port
 `8080` and the username and password used for authentication are `foo` and `bar`. 
 
-```shell script
+```shell-script
 docker run \
   --interactive \
   --tty \
@@ -39,13 +39,13 @@ anyone to publish data to your detector. This setup is primary meant for develop
 
 *For developers only*. Apply the changes to the `Dockerfile` and run the following command. 
 
-```shell script
+```shell-script
 docker build --tag openeew/detector:dev .
 ```
 
 Then run a development container:
 
-```shell script
+```shell-script
 docker run \
   --interactive \
   --tty \
@@ -59,7 +59,7 @@ docker run \
 
 Start a container as indicated above and then run the following on the *host* machine:
 
-```shell script
+```shell-script
 cd scripts
 python3 sensor_simulator.py --username admin --password admin --port 1883
 ```
@@ -98,8 +98,8 @@ To be added.
 ### Python
 This repo contains python [scripts](/scripts) which subscribes to `/traces` and runs 2 processes against each incoming message; an STA/LTA, and a PGA trigger.
 
-### Javascript
-The [openeew-nodered README]( https://github.com/openeew/openeew-nodered) contains an example of how to implement the PGA algorithm in Javascript. 
+### JavaScript
+The [openeew-nodered README]( https://github.com/openeew/openeew-nodered) contains an example of how to implement the PGA algorithm in JavaScript. 
 
 
 
