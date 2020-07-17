@@ -14,7 +14,7 @@ RUN apk update --no-cache \
   && echo "log_dest file /var/log/mosquitto/mosquitto.log" >> /opt/openeew/mosquitto.conf \
   && mkdir /run/postgresql \
   && chown postgres:postgres /run/postgresql \
-  && apk del cmake build-base git bash \
+  && apk del postgresql-dev cmake build-base git bash \
   && rm -rf /tmp/timescaledb \
   && rm -rf /var/cache/apk/*
 
