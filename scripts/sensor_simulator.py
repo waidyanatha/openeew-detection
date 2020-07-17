@@ -29,13 +29,13 @@ def build_sensors(earthquake_directory, provide_sensor_client):
                         'path': data_file_path,
                         'index': int(splitext(data_file)[0]),
                     })
-                    data_files.sort(key=lambda data_file_to_sort: data_file_to_sort['index'])
-                    sensor = {
-                        'id': sensor_id,
-                        'client': provide_sensor_client(),
-                        'data_files': data_files,
-                    }
-                    sensors.append(sensor)
+            data_files.sort(key=lambda data_file_to_sort: data_file_to_sort['index'])
+            sensor = {
+                'id': sensor_id,
+                'client': provide_sensor_client(),
+                'data_files': data_files,
+            }
+            sensors.append(sensor)
     sensors.sort(key=lambda sensor_to_sort: sensor_to_sort['id'])
     return sensors
 
