@@ -54,7 +54,6 @@ def remove_index(sensors, index_to_remove):
     for sensor in sensors:
         new_data_files = [data_file for data_file in sensor['data_files'] if data_file['index'] != index_to_remove]
         sensor['data_files'] = new_data_files
-    return sensors
 
 
 def send_next_line(sensor, file):
@@ -96,29 +95,36 @@ def run():
     sensors = build_sensors(earthquake_directory=earthquake_directory, provide_sensor_client=provide_sensor_client)
     print(f'📻 Found {len(sensors)} sensors for the {arguments.earthquake} earthquake')
 
-    index = get_next_index(sensors=sensors)
-    while index is not None:
-        print(f'🚀 Sending files with index {index}')
-        opened_files = open_files(sensors=sensors, index=index)
-        try:
-            while opened_files:
-                for opened_file in opened_files:
-                    sensor = opened_file['sensor']
-                    file = opened_file['file']
-                    if not send_next_line(sensor, file):
-                        file.close()
-                        opened_files.remove(opened_file)
-                        print(f'✅ File {index} from sensor {opened_file["sensor"]["id"]} sent')
-                sleep(arguments.frequency)
-        finally:
-            for opened_file in opened_files:
-                try:
-                    opened_file['file'].close()
-                except Exception as exception:
-                    print(exception)
-        remove_index(sensors=sensors, index_to_remove=index)
-        print(f'✅ Index {index} sent')
+    try:
         index = get_next_index(sensors=sensors)
+        while index is not None:
+            print(f'🚀 Sending files with index {index}')
+            opened_files = open_files(sensors=sensors, index=index)
+            try:
+                while opened_files:
+                    for opened_file in opened_files:
+                        sensor = opened_file['sensor']
+                        file = opened_file['file']
+                        if not send_next_line(sensor, file):
+                            file.close()
+                            opened_files.remove(opened_file)
+                            print(f'✅ File {index} from sensor {opened_file["sensor"]["id"]} sent')
+                    sleep(arguments.frequency)
+            finally:
+                for opened_file in opened_files:
+                    try:
+                        opened_file['file'].close()
+                    except Exception as exception:
+                        print(exception)
+            remove_index(sensors=sensors, index_to_remove=index)
+            print(f'✅ Index {index} sent')
+            index = get_next_index(sensors=sensors)
+    finally:
+        for sensor in sensors:
+            try:
+                sensor['client'].disconnect()
+            except Exception as exception:
+                print(exception)
 
 
 run()
