@@ -36,6 +36,7 @@ def build_sensors(earthquake_directory, provide_sensor_client):
                         'data_files': data_files,
                     }
                     sensors.append(sensor)
+    sensors.sort(key=lambda sensor_to_sort: sensor_to_sort['id'])
     return sensors
 
 
