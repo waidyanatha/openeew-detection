@@ -39,12 +39,16 @@ def set_time(times, sr, N):
     # create an empty variable to allocate the 
     diff = []
     
-    # Loop over the times of each fifo
-    for i, item in enumerate(times[0:-1]):
-        diff.append(times[i+1] - item)
-    
-    # Estimate the delta t per data tupple
-    delta_t = numpy.mean(diff) / (N/nfifo)
+    if nfifo > 1:
+        # Loop over the times of each fifo 
+        for i, item in enumerate(times[0:-1]):
+            diff.append(times[i+1] - item)
+        
+        # Estimate the delta t per data tupple
+        delta_t = numpy.mean(diff) / (N/nfifo)
+    else: 
+        delta_t = 1 / sr
+        times.append(times[0] + N*delta_t)
     
     # Defines the time for each tupple
     t = numpy.arange(times[0] - ((N/nfifo))*delta_t, times[-1]+delta_t, delta_t).tolist()
@@ -69,26 +73,40 @@ def parser_json(payload):
     device_id = payload["device_id"]
     cloud_t = payload["cloud_t"]
     
-    _x = []
-    _y = []
-    _z = []
-    _t = []
+    # jsonl from esp32 sensors
+    if len(payload) == 3: 
+        _x = []
+        _y = []
+        _z = []
+        _t = []
+        
+        for i, item in enumerate(payload["traces"]):
+            _x.append(item["x"])
+            _y.append(item["y"])
+            _z.append(item["z"])
+            _t.append(item["t"])
+            sr = item["sr"]
+        
+        x = [item for sublist in _x for item in sublist]
+        y = [item for sublist in _y for item in sublist]
+        z = [item for sublist in _z for item in sublist]
+        
+        # Set times per each data tupple (x, y and z)
+        t = set_time(_t, sr, len(x))
+        
+        traces = {"t" : t, "x" : x, "y" : y, "z" : z}
     
-    for i, item in enumerate(payload["traces"]):
-        _x.append(item["x"])
-        _y.append(item["y"])
-        _z.append(item["z"])
-        _t.append(item["t"])
-        sr = item["sr"]
+    # jsonl from rp sensors
+    elif len(payload) == 8:
+
+        sr = payload["sr"]
+        x = payload["x"]
+        y = payload["y"]
+        z = payload["z"]
+        _t = [payload["device_t"]]
+        t = set_time(_t, sr, len(x))
     
-    x = [item for sublist in _x for item in sublist]
-    y = [item for sublist in _y for item in sublist]
-    z = [item for sublist in _z for item in sublist]
-    
-    # Set times per each data tupple (x, y and z)
-    t = set_time(_t, sr, len(x))
-    
-    traces = {"t" : t, "x" : x, "y" : y, "z" : z}
+        traces = {"t" : t, "x" : x, "y" : y, "z" : z}
     
     return device_id, cloud_t, traces, sr
 
@@ -174,7 +192,7 @@ client = authenticate(mqtt.Client())
 client.on_message = on_message
 client.on_connect = on_connect
 client.connect("localhost", 1883)
-#client.loop_forever()
+
 client.loop_start()
 
 print('init')

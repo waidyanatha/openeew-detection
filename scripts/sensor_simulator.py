@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 import time
 import json
 import argparse
+import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--username", help="MQTT username")
@@ -35,5 +36,6 @@ def read(file_name):
             publish(topic, data_out)
 
 # Location of the jsonl file containing json per line with msgs from sensors
-file_name = "input/grillo_alert_traces-1-2020-06-04-14-43-48-e651eb58-59ac-43cb-b52d-97998e40d801-3ef3d787af85" # 4.2M Puerto Rico 2020-06-04 14:43:48 hr
+argument = sys.argv
+file_name = argument[1]
 read(file_name)
