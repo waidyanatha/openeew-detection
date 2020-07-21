@@ -205,5 +205,5 @@ while True:
         inbox = inbox[-long_window:]
 
 
-client.disconnect()
-client.loop_stop()
+#client.disconnect()
+#client.loop_stop()

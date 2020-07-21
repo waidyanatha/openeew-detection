@@ -26,5 +26,5 @@ client.loop_start()
 while True: 
     continue
 
-client.disconnect()
-client.loop_stop()
+#client.disconnect()
+#client.loop_stop()
