@@ -35,6 +35,9 @@ docker run \
 You can also omit the `username` and `password` parameters but that would be a **less secure** option and would allow
 anyone to publish data to your detector. This setup is primary meant for development.
 
+The Docker image contains a PostgreSQL database which is used to store devices and events. You can find its structure
+[here](https://github.com/openeew/openeew-detection/blob/master/scripts/init_db.sql).
+
 ### Build your own Docker image
 
 *For developers only*. Apply the changes to the `Dockerfile` and run the following command. 
