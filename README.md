@@ -69,7 +69,7 @@ python3 sensor_simulator.py --username admin --password admin --port 1883
 
 ## Components
 
-![MQTT](images/mqtt_workflow.png?raw=true "Diagram")
+![MQTT](images/mqtt_workflow2.png?raw=true "Diagram")
 <p align="center"> 
   
 ## Incoming sensor data
