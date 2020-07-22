@@ -67,50 +67,52 @@ cd scripts
 python3 sensor_simulator.py --username admin --password admin --port 1883
 ```
 
+[The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared. This is true of both the simulated sensor data, and actual sensor data.
+
 ## Components
 
 ![MQTT](images/mqtt_workflow2.png?raw=true "Diagram")
 <p align="center"> 
-  
-## Incoming sensor data
-### Sensor data
-[The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared.
+
+### Sensor simulator
+`sensor-simulator.py` selects historic data from /scripts/input and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
 
 ### MQTT Broker
-OpenEEW sensor data is ingested via a [Mosquitto MQTT broker](https://mosquitto.org/) with the topic `/traces`.
+A [Mosquitto MQTT broker](https://mosquitto.org/) adminsters the following topics:
+- `/traces` (raw accelerations from sensor, time, deviceid)
+- `/device` (device metadata; deviceid, lat, lon, firmware version)
+- `/pga-trigger` (threshold triggered for sensor; deviceid, pga intensity, time)
+- `/earthquake` (earthquake declared by comparing recent pga-triggers from various devices; eventid, time of event, pga intensity)
 
-## Detection Algorithms
+### Device information to databasee
+`DBwriter.py` updates the `devices` [table](https://github.com/openeew/openeew-detection/blob/master/scripts/init_db.sql) in the database with meta data for each sensor, including its location coordinates. This script also writes earthquake events to the database as they happen.
 
-### Single sensor process - STA/LTA
-First we run a Short-Term Average/Long-Term Average (STA/LTA) algorithm .This method is widely used to identify any disturbances in the signal (such as earthquakes) and determine the time when an event starts.
+### Detection script for single sensors
+The `detection.py` script runs a Short-Term Average/Long-Term Average STA/LTA algorithm followed by a Peak Ground Acceleration (PGA) calculation.
+
+#### STA/LTA 
+This method is widely used to identify any disturbances in the signal (such as earthquakes) and determine the time when an event starts.
 
 ![STA/LTA x component](images/sta_lta_x.png?raw=true "Record M7.2 Pinotepa Nacional, Oaxaca, Mexico (16-02-2018)")
 <p align="center">
   
 The algorithm takes each channel independently (x, y and z) and applies the moving average using two windows and returns the ratio as a function. Based on the part of the signal where there is no earthquake, a trigger level can be defined.
 
-### Single sensor process - Shaking level
+#### Shaking level
 The maximum acceleration, or Peak Ground Acceleration (PGA) `(x**2 + y**2 + z**2)**0.5)` is used to determine the level of shaking that needs to be updated after a triggering using the three components at the same time. 
 
 The output from this process is sent as a  value (PGA) using the topic `/pga-trigger`.
 
-To be added.
+### Multistation
+The `multistation.py` script subscribes to `/pga-trigger` to determine if an earthquake is occuring. This is done by evaluating distance and time between each `pga-trigger` msg. To get latitude and longitude, the script must read from the `devices` table in the database.
 
-## Detection Implementations
+The outcome of this script is a confirmed earthquake event. This is sent by msg to the `/earthquake` topic.
 
-### Python
-This repo contains python [scripts](/scripts) which subscribes to `/traces` and runs 2 processes against each incoming message; an STA/LTA, and a PGA trigger.
 
+## Alternative detection implementations
 ### JavaScript
 The [openeew-nodered README]( https://github.com/openeew/openeew-nodered) contains an example of how to implement the PGA algorithm in JavaScript. 
 
-
-
-### Multi sensor process - Earthquake confirmation
-To be added.
-
-## Output
-To be added
 
 ### Authors
 - [Grillo](https://grillo.io)
