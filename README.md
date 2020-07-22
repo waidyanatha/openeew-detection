@@ -77,7 +77,7 @@ python3 sensor_simulator.py --username admin --password admin --port 1883
 ### Sensor simulator
 `sensor-simulator.py` selects historic data from /scripts/input and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
 
-### MQTT Broker
+### MQTT broker
 A [Mosquitto MQTT broker](https://mosquitto.org/) adminsters the following topics:
 - `/traces` (raw accelerations from sensor, time, deviceid)
 - `/device` (device metadata; deviceid, lat, lon, firmware version)
@@ -103,7 +103,7 @@ The maximum acceleration, or Peak Ground Acceleration (PGA) `(x**2 + y**2 + z**2
 
 The output from this process is sent as a  value (PGA) using the topic `/pga-trigger`.
 
-### Multistation
+### Multistation for multiple sensor comparison
 The `multistation.py` script subscribes to `/pga-trigger` to determine if an earthquake is occuring. This is done by evaluating distance and time between each `pga-trigger` msg. To get latitude and longitude, the script must read from the `devices` table in the database.
 
 The outcome of this script is a confirmed earthquake event. This is sent by msg to the `/earthquake` topic.
