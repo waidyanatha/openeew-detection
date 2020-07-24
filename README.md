@@ -64,7 +64,7 @@ Start a container as indicated above and then run the following on the *host* ma
 
 ```shell-script
 cd scripts
-python3 sensor_simulator.py --username admin --password admin --port 1883
+python3 sensor_simulator.py --username admin --password admin --earthquake 2018_7.2 --port 1883
 ```
 
 [The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared. This is true of both the simulated sensor data, and actual sensor data.
