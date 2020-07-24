@@ -1,0 +1,7 @@
+/var/log/mosquitto/mosquitto.log {
+  rotate 7
+  compress
+  size 100k
+  nocreate
+  missingok
+}

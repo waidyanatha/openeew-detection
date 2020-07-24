@@ -4,7 +4,7 @@ LABEL maintainer="Egidio Caprino <egidio.caprino@gmail.com>"
 ENV PGDATA "/var/lib/postgresql/data"
 
 RUN apk update --no-cache \
-  && apk add --no-cache mosquitto python3 py3-paho-mqtt py3-numpy postgresql postgresql-dev cmake build-base git bash \
+  && apk add --no-cache mosquitto python3 py3-paho-mqtt py3-numpy postgresql postgresql-dev cmake build-base git bash logrotate \
   && git clone --branch 1.7.2 https://github.com/timescale/timescaledb.git /tmp/timescaledb \
   && cd /tmp/timescaledb && ./bootstrap -DREGRESS_CHECKS=OFF && cd build && make && make install && cd / \
   && mkdir /opt/openeew/ \
@@ -21,6 +21,7 @@ RUN apk update --no-cache \
 COPY scripts/detection.py scripts/trigger.py scripts/init_db.sql /opt/openeew/
 COPY detector /usr/sbin/detector
 RUN chmod +x /usr/sbin/detector
+COPY logrotate/mosquitto /etc/logrotate.d/
 
 USER postgres
 RUN mkdir "${PGDATA}" \
