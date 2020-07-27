@@ -1,6 +1,28 @@
 import paho.mqtt.client as mqtt
+import numpy
+import csv
 
-# Subscribed to 
+def read_sensor_coordinates(filename):
+    '''
+    filename contains the location of the file with a csv with 
+    device id and coordinates (latitud and longitude) of grillo sensors 
+    '''
+
+    with open(filename) as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        next(readCSV)
+        
+        device_id = []
+        lat = []
+        lon = []
+        
+        for row in readCSV:
+            dat1, dat2, dat3 = row
+            device_id.append(numpy.str(dat1))
+            lat.append(numpy.float(dat2))
+            lon.append(numpy.float(dat3))
+                
+    return numpy.array(device_id), numpy.array(lat), numpy.array(lon)
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
