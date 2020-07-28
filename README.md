@@ -69,6 +69,12 @@ python3 sensor_simulator.py --username admin --password admin --earthquake 2018_
 
 [The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared. This is true of both the simulated sensor data, and actual sensor data.
 
+## Run unit tests
+
+```shell script
+python -m unittest
+```
+
 ## Components
 
 ![MQTT](images/mqtt_workflow2.png?raw=true "Diagram")
