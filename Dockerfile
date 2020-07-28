@@ -18,7 +18,7 @@ RUN apk update --no-cache \
   && rm -rf /tmp/timescaledb \
   && rm -rf /var/cache/apk/*
 
-COPY src/detection.py src/trigger.py ./init_db.sql /opt/openeew/
+COPY openeew/detection.py openeew/trigger.py ./init_db.sql /opt/openeew/
 COPY detector /usr/sbin/detector
 RUN chmod +x /usr/sbin/detector
 

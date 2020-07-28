@@ -63,7 +63,7 @@ docker run \
 Start a container as indicated above and then run the following on the *host* machine:
 
 ```shell-script
-cd src
+cd openeew
 python3 sensor_simulator.py --username admin --password admin --earthquake 2018_7.2 --port 1883
 ```
 
