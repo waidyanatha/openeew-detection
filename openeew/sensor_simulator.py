@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 from os import listdir
 from os.path import dirname, realpath, isdir, isfile, join as join_paths, splitext
 
-input_directory = f'{dirname(realpath(__file__))}/input'
+input_directory = f'{dirname(realpath(__file__))}/../input'
 
 
 def create_client(host, port, username, password):

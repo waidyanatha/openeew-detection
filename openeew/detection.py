@@ -6,6 +6,7 @@ import argparse
 from trigger import sta_lta
 from trigger import trigger_time
 from trigger import accel_value
+from openeew.set_time import set_time
 
 # initializing empty variables
 inbox = {}
@@ -24,36 +25,6 @@ def authenticate(client):
     if args.username and args.password:
         client.username_pw_set(username=args.username, password=args.password)
     return client
-
-
-def set_time(times, sr, N):
-    """
-    times = time stamps by fifo in each payload
-    sr = sample rate
-    N = number of data samples
-    """
-
-    # number of fifos
-    nfifo = len(times)
-
-    # create an empty variable to allocate the
-    diff = []
-
-    if nfifo > 1:
-        # Loop over the times of each fifo
-        for i, item in enumerate(times[0:-1]):
-            diff.append(times[i + 1] - item)
-
-        # Estimate the delta t per data tupple
-        delta_t = numpy.mean(diff) / (N / nfifo)
-    else:
-        delta_t = 1 / sr
-        times.append(times[0] + N * delta_t)
-
-    # Defines the time for each tupple
-    t = numpy.arange(times[0] - ((N / nfifo)) * delta_t, times[-1] + delta_t, delta_t).tolist()
-
-    return t
 
 
 def parser_json(payload):

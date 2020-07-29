@@ -36,7 +36,7 @@ You can also omit the `username` and `password` parameters but that would be a *
 anyone to publish data to your detector. This setup is primary meant for development.
 
 The Docker image contains a PostgreSQL database which is used to store devices and events. You can find its structure
-[here](https://github.com/openeew/openeew-detection/blob/master/scripts/init_db.sql).
+[here](https://github.com/openeew/openeew-detection/blob/master/init_db.sql).
 
 ### Build your own Docker image
 
@@ -63,11 +63,17 @@ docker run \
 Start a container as indicated above and then run the following on the *host* machine:
 
 ```shell-script
-cd scripts
+cd openeew
 python3 sensor_simulator.py --username admin --password admin --earthquake 2018_7.2 --port 1883
 ```
 
 [The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared. This is true of both the simulated sensor data, and actual sensor data.
+
+## Run unit tests
+
+```shell script
+python -m unittest
+```
 
 ## Components
 
@@ -75,7 +81,7 @@ python3 sensor_simulator.py --username admin --password admin --earthquake 2018_
 <p align="center"> 
 
 ### Sensor simulator
-`sensor-simulator.py` selects historic data from /scripts/input and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
+`sensor-simulator.py` selects historic data from /input and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
 
 ### MQTT broker
 A [Mosquitto MQTT broker](https://mosquitto.org/) adminsters the following topics:
@@ -85,7 +91,7 @@ A [Mosquitto MQTT broker](https://mosquitto.org/) adminsters the following topic
 - `/earthquake` (earthquake declared by comparing recent pga-triggers from various devices; eventid, time of event, pga intensity)
 
 ### Device information to databasee
-`DBwriter.py` updates the `devices` [table](https://github.com/openeew/openeew-detection/blob/master/scripts/init_db.sql) in the database with meta data for each sensor, including its location coordinates. This script also writes earthquake events to the database as they happen.
+`DBwriter.py` updates the `devices` [table](https://github.com/openeew/openeew-detection/blob/master/init_db.sql) in the database with meta data for each sensor, including its location coordinates. This script also writes earthquake events to the database as they happen.
 
 ### Detection script for single sensors
 The `detection.py` script runs a Short-Term Average/Long-Term Average STA/LTA algorithm followed by a Peak Ground Acceleration (PGA) calculation.
