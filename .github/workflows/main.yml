@@ -3,6 +3,8 @@ name: CI
 on:
   create:
     branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
   publish:
@@ -11,7 +13,19 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/checkout@v2.3.1
-      - uses: docker/build-push-action@v1.1.0
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - run: pip install -requirement requirements.txt
+      - run: python -m unittest
+      - if: success() && github.event_name == 'create'
+        uses: docker/build-push-action@v1.1.0
         with:
           repository: openeew/detector
           username: ${{ secrets.DOCKER_USERNAME }}
