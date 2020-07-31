@@ -1,5 +1,5 @@
 from unittest import TestCase
-from openeew.set_time import set_time
+from openeew.time import set_time
 
 
 class SetTimeTest(TestCase):

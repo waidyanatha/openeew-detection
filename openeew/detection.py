@@ -6,7 +6,7 @@ import argparse
 from trigger import sta_lta
 from trigger import trigger_time
 from trigger import accel_value
-from openeew.set_time import set_time
+from openeew.time import set_time
 
 # initializing empty variables
 inbox = {}
