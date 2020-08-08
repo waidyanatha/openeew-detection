@@ -1,6 +1,6 @@
 # Deployment to Kubernetes
 
-You can run the OpenEEW detection engine as a standalone Docker container on your laptop, a Rasberry Pi devices, or another computer. But you can also deploy it to a Kubernetes cluster such as the IBM Container Service or Red Hat OpenShift.
+You can run the OpenEEW detection engine as a standalone Docker container on your laptop, a Raspberry Pi devices, or another computer. But you can also deploy it to a Kubernetes cluster such as the IBM Container Service or Red Hat OpenShift.
 
 ## Set up a Kubernetes cluster on the IBM Cloud
 
