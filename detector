@@ -34,4 +34,6 @@ else
   echo "✅ Initialized"
 fi
 
+watch -n 600 /usr/sbin/logrotate /etc/logrotate.d/* &
+
 python3 /opt/openeew/detection.py --username "${username}" --password "${password}"
