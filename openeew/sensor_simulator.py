@@ -83,13 +83,14 @@ def run():
     parser = ArgumentParser()
     parser.add_argument("--username", help="MQTT username")
     parser.add_argument("--password", help="MQTT password")
+    parser.add_argument("--host", help="MQTT host", nargs="?", const="localhost", default="localhost")
     parser.add_argument("--port", help="MQTT port", nargs="?", type=int, const=1883, default=1883)
     parser.add_argument("--earthquake", help="Earthquake directory")
     parser.add_argument("--frequency", help="Frequency in seconds between each signal", type=int, default=1)
     arguments = parser.parse_args()
 
     def provide_sensor_client():
-        return create_client("localhost", arguments.port, arguments.username, arguments.password)
+        return create_client(arguments.host, arguments.port, arguments.username, arguments.password)
 
     earthquake_directory = join_paths(input_directory, arguments.earthquake)
     sensors = build_sensors(earthquake_directory=earthquake_directory, provide_sensor_client=provide_sensor_client)
