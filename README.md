@@ -1,11 +1,6 @@
 ![](https://github.com/openeew/openeew-detection/workflows/CI/badge.svg)
 # Earthquake detection for OpenEEW
 This is a simple Docker configuration to startup a new OpenEEW detection system. It ingests data from OpenEEW sensors via an MQTT broker, and triggers for individual sensors using a detection method. These events are then sent to a multi-station logic script that checks time and distance proximity for sensors before declaring an earthquake.
-
-The OpenEEW strategy for accurately detecting earthquakes while avoiding false positives is to use a variety of tactics, including:
-* Filtering out non-earthquake vibrations by using [STA/LTA (Short-Term Average/Long-Term Average)](#stalta)
-* Detecting peak accelerations ([PGAs](#shaking-level)) above a certain threshold from the sensors
-* Aggregating readings from [multiple nearby sensors](#multistation-for-multiple-sensor-comparison)
   
 ## Quick start
 Install [Docker](https://www.docker.com/get-started) and run a detector container with the following command.
@@ -23,7 +18,7 @@ docker run \
 ```
 
 You can change the port published to host and the credentials. In the following example the detector listens on port
-`8080` and the username and password created for authentication are `foo` and `bar`. 
+`8080` and the username and password used for authentication are `foo` and `bar`. 
 
 ```shell-script
 docker run \
@@ -72,9 +67,7 @@ cd openeew
 python3 sensor_simulator.py --username admin --password admin --earthquake 2018_7.2 --port 1883
 ```
 
-Note: You may need to install the Paho MQTT client. For example, `pip install paho-mqtt`
-
-[The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared. This is true of both the simulated sensor data, and actual sensor data. The script will send data at the rate of one message from each sensor per second.
+[The data](https://openeew.com/docs/historic-data#how-are-records-generated) comprises records of acceleration in three channels representing sensor movement in the space. The channels are orthogonal (90 degrees from each other), two components are horizontal, x and y, and one vertical, z. The units are gals, centimeter per second squared. This is true of both the simulated sensor data, and actual sensor data.
 
 ## Run unit tests
 
@@ -88,16 +81,16 @@ python -m unittest
 <p align="center"> 
 
 ### Sensor simulator
-`sensor_simulator.py` selects historic data from [/input](https://github.com/openeew/openeew-detection/tree/master/input) and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
+`sensor-simulator.py` selects historic data from /input and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
 
 ### MQTT broker
-A [Mosquitto MQTT broker](https://mosquitto.org/) administers the following topics:
+A [Mosquitto MQTT broker](https://mosquitto.org/) adminsters the following topics:
 - `/traces` (raw accelerations from sensor, time, deviceid)
 - `/device` (device metadata; deviceid, lat, lon, firmware version)
 - `/pga-trigger` (threshold triggered for sensor; deviceid, pga intensity, time)
 - `/earthquake` (earthquake declared by comparing recent pga-triggers from various devices; eventid, time of event, pga intensity)
 
-### Device information to database
+### Device information to databasee
 `DBwriter.py` updates the `devices` [table](https://github.com/openeew/openeew-detection/blob/master/init_db.sql) in the database with meta data for each sensor, including its location coordinates. This script also writes earthquake events to the database as they happen.
 
 ### Detection script for single sensors
