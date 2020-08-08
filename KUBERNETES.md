@@ -83,12 +83,12 @@ The simulator will now send one reading per second per simulated sensor.
 
 ## Monitoring the data flowing through the system
 
-In the Kubernetes dashboard, select **Pods** and find the "Logs" menu under the three dots at the far right of the `openeew` pod. You can also `exec` into the running container to explore other logs under `/var/log`.
+In the Kubernetes dashboard, select **Pods** and find the "Logs" menu under the three dots at the far right of the `openeew` pod. You can also `exec` into the running container to explore the Mosquitto and PostgreSQL logs under `/var/log`.
 
 You can also now use any of the other dashboard or `kubectl` command line functions to manage your detector engine.
 
 ## Next steps
 
-If you'd like to contribute to creating a distributed system on Kubernetes with a separate MQTT system, separate PostgreSQL database, and separate dashboard web app, please open an issue or submit a pull request. 
+If you'd like to contribute to creating a multi-pod distributed system on Kubernetes with a separate MQTT system, separate PostgreSQL database, and separate dashboard web app, please open an [issue](https://github.com/openeew/openeew-detection/issues) or submit a pull request. 
 
-We are also interested in documenting how to create a system based on the Watson IoT Platform, PostgreSQL databases for Compose, and a dashboard run as a Cloud Foundry or Kubernetes web application.
+We are also interested in documenting how to create a system based on the [IBM Watson IoT Platform](https://cloud.ibm.com/catalog/services/internet-of-things-platform), [IBM Databases for PostgreSQL](https://cloud.ibm.com/catalog/services/databases-for-postgresql), and a dashboard run as a Cloud Foundry or Kubernetes web application.
