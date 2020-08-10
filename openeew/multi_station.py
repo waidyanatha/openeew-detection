@@ -5,7 +5,7 @@ import csv
 def read_sensor_coordinates(filename):
     '''
     filename contains the location of the file with a csv with 
-    device id and coordinates (latitud and longitude) of grillo sensors 
+    device id and coordinates (latitude and longitude) of grillo sensors 
     '''
 
     with open(filename) as csvfile:
