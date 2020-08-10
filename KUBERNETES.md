@@ -91,4 +91,4 @@ You can also now use any of the other dashboard or `kubectl` command line functi
 
 If you'd like to contribute to creating a multi-pod distributed system on Kubernetes with a separate MQTT system, separate PostgreSQL database, and separate dashboard web app, please open an [issue](https://github.com/openeew/openeew-detection/issues) or submit a pull request. 
 
-We are also interested in documenting how to create a system based on the [IBM Watson IoT Platform](https://cloud.ibm.com/catalog/services/internet-of-things-platform), [IBM Databases for PostgreSQL](https://cloud.ibm.com/catalog/services/databases-for-postgresql), and a dashboard run as a Cloud Foundry or Kubernetes web application.
+We are also interested in documenting how to create a system based on the [IBM Watson IoT Platform](https://cloud.ibm.com/catalog/services/internet-of-things-platform), [IBM Databases for PostgreSQL](https://cloud.ibm.com/catalog/services/databases-for-postgresql), and a dashboard run as a Cloud Foundry or Kubernetes web application. 
