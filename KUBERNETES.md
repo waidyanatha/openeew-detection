@@ -61,9 +61,9 @@ You can now deploy the `openeew/detector` app to your cluster.
   * Copy the [node port YAML](openeew.yaml).
   * In the **Create from input** box, paste the node port YAML that you copied in the previous step.
   * Click **Upload**. The node port service is created.
-* From the menu, click Service > Services, and note the TCP endpoint port of your liberty service in the node port range 30000 - 32767, such as openeew:31883 TCP.
-* From the menu, click Workloads > Pods, and note the Node that your pod runs on, such as 10.xxx.xx.xxx.
-* Return to the IBM Cloud clusters console, select your cluster, and click the Worker Nodes tab. Find the Public IP of the worker node that matches the private IP of the node that the pod runs on. Save this IP for the next step
+* From the menu, click **Service > Services**, and note the TCP endpoint port of your container in the node port range `30000 - 32767`, by default it will be `openeew:31883 TCP`.
+* From the menu, click **Workloads > Pods**, and note the **Node** that your pod runs on, such as `10.xxx.xxx.xxx`.
+* Return to the [IBM Cloud clusters console](https://cloud.ibm.com/kubernetes/clusters), select your cluster, and click the **Worker Nodes** tab. Find the **Public IP** of the worker node that matches the private IP of the node that the pod runs on. Save this IP for the next step.
 
 ## Simulate messages
 
