@@ -132,7 +132,7 @@ The [openeew-nodered README]( https://github.com/openeew/openeew-nodered) contai
 - [Egidio Caprino](https://github.com/EgidioCaprino)
 ___
 
-Enjoy!  Give us [feedback](https://github.com/openeew/openeew-detection/issues) if you have suggestions on how to improve this information.
+Enjoy!  Give us [feedback](https://github.com/openeew/openeew-detection/issues) if you have suggestions on how to improve this information. Here are some [guidelines for contributing algorithms](openeew/README.md).
 
 ## License
 

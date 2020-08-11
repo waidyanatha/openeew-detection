@@ -10,7 +10,7 @@ input_path = "../input/2018_7.2/"
 
 def arrange_files(input_path):
 	"""
-	Read a direcrtory and organize files to start reading in order
+	Read a directory and organize files to start reading in order
 	"""
 
 	# Create an empty object to allocate the files
