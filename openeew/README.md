@@ -1,11 +1,11 @@
 
 # Contributing to OpenEEW algorithms 
 
-If you want to constribute to OpenEEW with an algorithm you are awesome, please also take into account the following points: 
+If you want to contribute an algorithm to OpenEEW, please also take into account the following points: 
 
-1. Each method you add or change should contain its own test, based on unittest in python
-2. The method should be related to detection, data transmission using mqtt and earthquake characterization
-3. If you have some other ideas please contact us 
+1. Each method you add or change should contain its own test, based on `unittest` in Python
+2. The method should be related to detection, data transmission using MQTT and earthquake characterization
+3. If you have some other ideas please [open an issue](https://github.com/openeew/openeew-detection/issues)
 
 Thanks :)
 

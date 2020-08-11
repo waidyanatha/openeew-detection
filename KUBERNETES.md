@@ -1,6 +1,6 @@
 # Deployment to Kubernetes
 
-You can run the OpenEEW detection engine as a standalone Docker container on your laptop, a Raspberry Pi devices, or another computer. But you can also deploy it to a Kubernetes cluster such as the [IBM Container Service](https://www.ibm.com/cloud/container-service/) or [Red Hat OpenShift](https://www.ibm.com/cloud/openshift).
+You can run the OpenEEW detection engine as a standalone Docker container on your laptop, a Raspberry Pi device, or another computer. But you can also deploy it to a Kubernetes cluster such as the [IBM Container Service](https://www.ibm.com/cloud/container-service/) or [Red Hat OpenShift](https://www.ibm.com/cloud/openshift).
 
 ## Set up a Kubernetes cluster on the IBM Cloud
 
@@ -28,7 +28,7 @@ While your cluster is provisioning, set up your local workstation with the clien
   ibmcloud login -a cloud.ibm.com -r us-south -g default
   ```
 
-* Set the Kubernetes context to your cluster for this terminal session. This command will fail if the cluster isn't ready yet.
+* Set the Kubernetes context to your cluster for this terminal session. This command will fail if the cluster isn't yet ready.
 
   ```shell-script
   ibmcloud ks cluster config --cluster <your cluster id>
