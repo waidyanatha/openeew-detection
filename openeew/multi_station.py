@@ -1,6 +1,24 @@
 import paho.mqtt.client as mqtt
 import numpy
 import csv
+import json
+
+def parser_json(payload):
+    '''
+    Parser payload from mqtt
+    Format json 
+    Returns:
+        device_id
+        time
+        pga 
+    '''
+    m_in = json.loads(payload) 
+
+    device_id = m_in["device_id"]
+    time = m_in["time"]
+    pga = m_in["pga"]
+
+    return device_id, time, pga
 
 def read_sensor_coordinates(filename):
     '''
@@ -33,8 +51,11 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-	#print("Mensaje recibido")
 	print(msg.topic, msg.payload)
+    m_decode = msg.payload.decode("utf-8","ignore")
+    m_decode = m_decode.replace("'", '"')
+    # Json parser to extract info
+    device_id, time, pga = parser_json(m_decode)
 
 
 # MQTT SECTIONS
