@@ -3,9 +3,9 @@ from unittest.mock import patch, MagicMock
 
 
 class SaveDeviceTest(TestCase):
-    @patch('openeew.db.execute_statement')
+    @patch('db.execute_statement')
     def test_device_is_persisted(self, mock_execute_statement):
-        from openeew.devices import save_device
+        from devices import save_device
         input = {
             'device_id': '2351n2x55',
             'latitude': 19.35,

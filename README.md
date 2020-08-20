@@ -79,7 +79,7 @@ Note: You may need to install the Paho MQTT client. For example, `pip install pa
 ## Run unit tests
 
 ```shell script
-python -m unittest
+PYTHONPATH=./openeew python -m unittest
 ```
 
 ## Components

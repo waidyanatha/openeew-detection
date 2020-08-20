@@ -23,7 +23,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - run: pip install -requirement requirements.txt
-      - run: python -m unittest
+      - run: PYTHONPATH=./openeew python -m unittest
       - if: success() && github.event_name == 'create'
         uses: docker/build-push-action@v1.1.0
         with:
