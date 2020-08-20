@@ -1,5 +1,5 @@
 import json
-from openeew.time import set_time
+from time_utils import set_time
 
 
 def parser_json(payload):

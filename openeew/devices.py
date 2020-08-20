@@ -1,4 +1,4 @@
-from openeew.db import execute_statement
+from db import execute_statement
 
 
 def save_device(device):
@@ -10,7 +10,7 @@ def save_device(device):
             firmware_version,
             device_type,
             time_entered
-        ) VALUES (?, ?, ?, ?, ?, ?)
+        ) VALUES (%s, %s, %s, %s, %s, %s)
     '''
     parameters = (
         device['device_id'],

@@ -18,4 +18,11 @@ def _get_connection():
 def execute_statement(statement, parameters):
     connection = _get_connection()
     cursor = connection.cursor()
-    cursor.execute(statement, parameters)
+    try:
+        cursor.execute(statement, parameters)
+        connection.commit()
+    except BaseException as exception:
+        print(exception)
+        connection.rollback()
+    finally:
+        cursor.close()

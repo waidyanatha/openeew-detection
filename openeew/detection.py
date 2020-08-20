@@ -6,7 +6,7 @@ import argparse
 from trigger import sta_lta
 from trigger import trigger_time
 from trigger import accel_value
-from openeew.mqtt import parser_json
+from mqtt import parser_json
 
 # initializing empty variables
 inbox = {}
