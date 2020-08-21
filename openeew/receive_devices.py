@@ -1,22 +1,15 @@
-import paho.mqtt.client as mqtt
 import json
-import argparse
+
+import paho.mqtt.client as mqtt
+
 from devices import save_device
-
-
-def authenticate(client):
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--username", help="MQTT username")
-    parser.add_argument("--password", help="MQTT password")
-    args = parser.parse_args()
-    if args.username and args.password:
-        client.username_pw_set(username=args.username, password=args.password)
-    return client
+from mqtt import authenticate
 
 
 def on_connect(client, userdata, flags, resultCode):
     print(f'✅ Connected with result code {resultCode}')
     client.subscribe('/devices')
+
 
 def on_message(client, userdata, message):
     try:

@@ -1,7 +1,9 @@
-import paho.mqtt.client as mqtt
 import json
-import argparse
 from time import sleep
+
+import paho.mqtt.client as mqtt
+
+from mqtt import authenticate
 
 devices = [
     {
@@ -13,16 +15,6 @@ devices = [
         'time_entered': 1597685615,
     },
 ]
-
-
-def authenticate(client):
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--username", help="MQTT username")
-    parser.add_argument("--password", help="MQTT password")
-    args = parser.parse_args()
-    if args.username and args.password:
-        client.username_pw_set(username=args.username, password=args.password)
-    return client
 
 
 def on_connect(client, userdata, flags, resultCode):
