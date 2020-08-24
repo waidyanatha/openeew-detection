@@ -1,5 +1,5 @@
 from unittest import TestCase
-from openeew.mqtt import parser_json
+from mqtt import parser_json
 
 
 class ParserJsonTest(TestCase):

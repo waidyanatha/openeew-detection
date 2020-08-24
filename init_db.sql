@@ -1,10 +1,9 @@
 CREATE TABLE devices (
   device_id VARCHAR NOT NULL PRIMARY KEY,
-  intensity DOUBLE PRECISION,
   latitude DOUBLE PRECISION,
   longitude DOUBLE PRECISION,
   firmware_version DOUBLE PRECISION,
-  device_type DOUBLE PRECISION,
+  device_type VARCHAR,
   time_entered DOUBLE PRECISION
 );
 

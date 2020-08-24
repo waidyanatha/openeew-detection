@@ -1,5 +1,5 @@
 from unittest import TestCase
-from openeew.time import set_time
+from time_utils import set_time
 
 
 class SetTimeTest(TestCase):
@@ -9,7 +9,7 @@ class SetTimeTest(TestCase):
         samples = 2
         expected = [1595951421870, 1595951432794, 1595951443718]
         actual = set_time(times, sample_rate, samples)
-        self.assertEquals(expected, actual)
+        self.assertEqual(expected, actual)
 
     def test_with_one_time(self):
         times = [1595951432794]
@@ -17,4 +17,4 @@ class SetTimeTest(TestCase):
         samples = 1
         expected = [1595951432792, 1595951432794, 1595951432796]
         actual = set_time(times, sample_rate, samples)
-        self.assertEquals(expected, actual)
+        self.assertEqual(expected, actual)
