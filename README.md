@@ -6,6 +6,9 @@ The OpenEEW strategy for accurately detecting earthquakes while avoiding false p
 * Filtering out non-earthquake vibrations by using [STA/LTA (Short-Term Average/Long-Term Average)](#stalta)
 * Detecting peak accelerations ([PGAs](#shaking-level)) above a certain threshold from the sensors
 * Aggregating readings from [multiple nearby sensors](#multistation-for-multiple-sensor-comparison)
+
+## Components
+<img src="images/OpenEEW_detection2.png" alt="diagram" width="500"/>
   
 ## Quick start
 Install [Docker](https://www.docker.com/get-started) and run a detector container with the following command.
@@ -81,10 +84,6 @@ Note: You may need to install the Paho MQTT client. For example, `pip install pa
 ```shell script
 PYTHONPATH=./openeew:./test python -m unittest
 ```
-
-## Components
-
-<img src="images/OpenEEW_detection2.png" alt="diagram" width="500"/>
 
 ### Sensor simulator
 `sensor_simulator.py` selects historic data from [/input](https://github.com/openeew/openeew-detection/tree/master/input) and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
