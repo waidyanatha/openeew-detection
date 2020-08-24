@@ -84,7 +84,7 @@ PYTHONPATH=./openeew:./test python -m unittest
 
 ## Components
 
-![MQTT](images/mqtt_workflow2.png?raw=true "Diagram") 
+![Diagram](images/OpenEEW_detection2.png?raw=true "Diagram") 
 
 ### Sensor simulator
 `sensor_simulator.py` selects historic data from [/input](https://github.com/openeew/openeew-detection/tree/master/input) and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
