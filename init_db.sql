@@ -13,6 +13,6 @@ CREATE TABLE eew_output (
   intensity DOUBLE PRECISION,
   latitude DOUBLE PRECISION,
   longitude DOUBLE PRECISION,
-  sensor_ids DOUBLE PRECISION,
+  sensor_ids VARCHAR[],
   time_entered DOUBLE PRECISION
 );

@@ -1,5 +1,17 @@
+import argparse
 import json
+
 from time_utils import set_time
+
+
+def authenticate(client):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--username", help="MQTT username")
+    parser.add_argument("--password", help="MQTT password")
+    args = parser.parse_args()
+    if args.username and args.password:
+        client.username_pw_set(username=args.username, password=args.password)
+    return client
 
 
 def parser_json(payload):

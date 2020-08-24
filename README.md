@@ -79,13 +79,12 @@ Note: You may need to install the Paho MQTT client. For example, `pip install pa
 ## Run unit tests
 
 ```shell script
-PYTHONPATH=./openeew python -m unittest
+PYTHONPATH=./openeew:./test python -m unittest
 ```
 
 ## Components
 
-![MQTT](images/mqtt_workflow2.png?raw=true "Diagram")
-<p align="center"> 
+![MQTT](images/mqtt_workflow2.png?raw=true "Diagram") 
 
 ### Sensor simulator
 `sensor_simulator.py` selects historic data from [/input](https://github.com/openeew/openeew-detection/tree/master/input) and publishes them to MQTT at an accurate rate (1 msg per sensor per second).
@@ -107,7 +106,6 @@ The `detection.py` script runs a Short-Term Average/Long-Term Average STA/LTA al
 This method is widely used to identify any disturbances in the signal (such as earthquakes) and determine the time when an event starts.
 
 ![STA/LTA x component](images/sta_lta_x.png?raw=true "Record M7.2 Pinotepa Nacional, Oaxaca, Mexico (16-02-2018)")
-<p align="center">
   
 The algorithm takes each channel independently (x, y and z) and applies the moving average using two windows and returns the ratio as a function. Based on the part of the signal where there is no earthquake, a trigger level can be defined.
 

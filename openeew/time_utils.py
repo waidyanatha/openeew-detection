@@ -1,3 +1,5 @@
+from time import time
+
 from numpy import arange, mean
 
 
@@ -20,3 +22,7 @@ def set_time(times, sample_rate, samples):
         times.append(times[0] + samples * delta)
 
     return arange(times[0] - ((samples / fifos)) * delta, times[-1] + delta, delta).tolist()
+
+
+def get_current_timestamp():
+    return time()
