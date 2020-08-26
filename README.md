@@ -17,7 +17,7 @@ First install [Docker](https://www.docker.com/get-started)
 Jump to _Run Detector Docker_ section, if you already have a local copy of the [openeew-detection code](https://github.com/openeew/openeew-detection). 
 Else, get a copy first before running the docker shell-script. After changing to a folder of your choice, to retrieve the code
 
-* _Option 1_ : download the code using the browser _Code --> Download ZIP_ or run the `wget https://github.com/openeew/openeew-detection/archive/master.zip` below; to then extract the zipped files.
+* _Option 1_ : download the code using the browser _Code --> Download ZIP_ or run the `wget https://github.com/openeew/openeew-detection/archive/master.zip`; to then extract the zipped files.
 * _Option 2_ : clone the code using the git command; especially if you intend to make changes to this repo `git clone https://github.com/openeew/openeew-detection.git`
 
 ### Run Detector Docker
