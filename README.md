@@ -11,7 +11,30 @@ The OpenEEW strategy for accurately detecting earthquakes while avoiding false p
 <img src="images/OpenEEW_detection.svg" alt="diagram" width="600"/>
   
 ## Quick start
-Install [Docker](https://www.docker.com/get-started) and run a detector container with the following command.
+
+Install [Docker](https://www.docker.com/get-started) and 
+
+Jump to _Detector Docker_ section, if you already have a local copy of the [openeew-detection code](https://github.com/openeew/openeew-detection). 
+Else, get a copy of it first before running the docker shell-script below. After changing to a folder of your choice, to retrieve the code
+
+_Method 1_
+* Download the code using the browser _Code --> Download ZIP_ or run the _wget_ below; to then extract the zipped files.
+
+'''shell-script
+wget https://github.com/openeew/openeew-detection/archive/master.zip
+'''
+
+_Method 2_
+
+* clone the code using the git command; especially if you intend to contribute
+
+'''shell-script
+git clone https://github.com/openeew/openeew-detection.git
+'''
+
+### Detector Docker
+
+run a detector container with the following command.
 
 ```shell-script
 docker run \
